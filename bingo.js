@@ -13,11 +13,11 @@ $(document).ready(function () {
 
 function getBingoNumber() {
     var bingo = generateBingoNumber();
-    $('#numbersB').html(calledBs.join(" : "));
-    $('#numbersI').html(calledIs.join(" : "));
-    $('#numbersN').html(calledNs.join(" : "));
-    $('#numbersG').html(calledGs.join(" : "));
-    $('#numbersO').html(calledOs.join(" : "));
+    $('#numbersB').html(calledBs.sort((a, b) => a - b).join(" : "));
+    $('#numbersI').html(calledIs.sort((a, b) => a - b).join(" : "));
+    $('#numbersN').html(calledNs.sort((a, b) => a - b).join(" : "));
+    $('#numbersG').html(calledGs.sort((a, b) => a - b).join(" : "));
+    $('#numbersO').html(calledOs.sort((a, b) => a - b).join(" : "));
     $('#calledNumber').html(bingo);
 }
 
