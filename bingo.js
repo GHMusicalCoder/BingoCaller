@@ -5,6 +5,7 @@ var calledIs = [];
 var calledNs = [];
 var calledGs = [];
 var calledOs = [];
+var bingoCards = [];
 
 $(document).ready(function () {
     resetBingo();
@@ -51,6 +52,7 @@ function generateBingoNumber() {
     if (calledNumbers.length === 75) {
         $('#btnNext').hide();
     }
+    testForBingo(possibleNumber)
     return getBingoValue(possibleNumber);
 }
 
@@ -69,9 +71,33 @@ function resetBingo() {
     $('#numbersO').html("");
     $('#calledNumber').html("Waiting...");
     $('#btnNext').show();
+    for (i = 0; ++i < BingoCards.length;) {
+        BingoCards[i]['calledNumbers']
+    }
 }
 
 function getCalledHTML(numbers) {
     var $html = '';
 
 }
+
+function testForBingo(number) {
+
+}
+
+class BingoCard {
+    constructor(number, cardNumbers) {
+        this.number = number;
+        this.cardNumbers = cardNumbers.splice(12, 0, 99);
+        this.calledNumbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.isBingo = false;
+    }
+}
+
+// card = {
+//     number: 0,
+//     cardNumbers: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 99, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     calledNumbers: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+// }
+
+bingoCards.push(new BingoCard(1, [4, 8, 3, 9, 11, 21, 18, 30, 25, 22, 33, 35, 31, 44, 55, 49, 52, 59, 48, 61, 67, 75, 69, 63]));
