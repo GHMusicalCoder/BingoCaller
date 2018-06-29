@@ -48,6 +48,9 @@ function generateBingoNumber() {
 
     //we should now have an uncalled number
     calledNumbers.push(possibleNumber);
+    if (calledNumbers.length === 75) {
+        $('#btnNext').hide();
+    }
     return getBingoValue(possibleNumber);
 }
 
@@ -65,6 +68,7 @@ function resetBingo() {
     $('#numbersG').html("");
     $('#numbersO').html("");
     $('#calledNumber').html("Waiting...");
+    $('#btnNext').show();
 }
 
 function getCalledHTML(numbers) {
