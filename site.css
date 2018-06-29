@@ -2,3 +2,25 @@
     font-size: 2em;
     color: blue;
 }
+
+.center {
+    text-align: center;
+}
+
+.calledNumber {
+    font-size: 3em;
+    color: green;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+button {
+    margin: 0 auto;
+    display: inline-block;
+    width: 200px;
+}
