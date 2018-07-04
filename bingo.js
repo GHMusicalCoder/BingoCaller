@@ -81,6 +81,10 @@ function getCalledHTML(numbers) {
 
 }
 
+function validateCards() {
+    // loop thru bingo cards and verify all is legit
+}
+
 function testForBingo(number) {
 
 }
@@ -171,32 +175,32 @@ bingoCards.push(new BingoCard(68, [5, 12, 14, 1, 3, 17, 23, 26, 29, 20, 35, 41, 
 bingoCards.push(new BingoCard(69, [12, 3, 14, 13, 8, 29, 30, 21, 26, 27, 45, 31, 33, 42, 47, 49, 54, 55, 57, 66, 72, 74, 68, 61])); 
 bingoCards.push(new BingoCard(70, [11, 4, 6, 8, 10, 16, 17, 21, 22, 23, 33, 140, 36, 35, 53, 58, 56, 48, 50, 62, 63, 65, 68, 70])); 
 bingoCards.push(new BingoCard(71, [12, 13, 6, 4, 5, 25, 21, 18, 29, 30, 32, 45, 31, 34, 46, 55, 56, 57, 59,72, 69, 66, 64, 75])); 
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
-// bingoCards.push(new BingoCard(, []));
+bingoCards.push(new BingoCard(72, [3, 8, 6, 7, 13, 28, 18, 21, 23, 22, 32, 33, 40, 42, 58, 52, 48, 53, 51, 68, 66, 63, 73, 67]));
+bingoCards.push(new BingoCard(73, [6, 12, 8, 7, 2, 23, 24, 30, 20, 21, 39, 40, 42, 36, 56, 58, 48, 49, 51, 75, 66, 68, 62, 70]));
+bingoCards.push(new BingoCard(74, [5, 14, 7, 15, 1, 19, 20, 18, 21, 17, 43, 37, 36, 35, 46, 54, 50, 56, 48, 72, 64, 73, 63, 62]));
+bingoCards.push(new BingoCard(75, [2, 7, 10, 14, 1, 23, 19, 29, 25, 30, 44, 32, 34, 42, 49, 50, 57, 59, 46, 63, 66, 67, 72, 75]));
+bingoCards.push(new BingoCard(76, [12, 7, 8, 2, 3, 18, 17, 23, 22, 27, 42, 37, 35, 36, 53, 48, 47, 57, 52, 68, 72, 67, 63, 62]));
+bingoCards.push(new BingoCard(77, [1, 12, 10, 8, 14, 16, 25, 27, 29, 23, 31, 32, 35, 40, 57, 55, 46, 59, 53, 61, 70, 68, 72, 74]));
+bingoCards.push(new BingoCard(78, [11, 4, 13, 6, 7, 25, 26, 24, 27, 23, 34, 43, 42, 41, 52, 60, 56, 47, 54, 63, 70, 64, 69, 68]));
+bingoCards.push(new BingoCard(79, [2, 1, 11, 9, 7, 17, 21, 16, 25, 20, 34, 42, 32, 40, 47, 53, 59, 49, 57, 74, 62, 68, 63, 71]));
+bingoCards.push(new BingoCard(80, [3, 2, 12, 10, 8, 18, 22, 17, 26, 21, 35, 43, 33, 41, 48, 54, 60, 50, 58, 75, 63, 69, 64, 72]));
+bingoCards.push(new BingoCard(81, [9, 7, 10, 4, 11, 19, 25, 27, 18, 20, 33, 36, 37, 42, 55, 51, 58, 54, 48, 64, 73, 62, 69, 75]));
+bingoCards.push(new BingoCard(82, [1, 3, 7, 8, 12, 16, 19, 20, 23, 29, 32, 38, 44, 37, 47, 48, 50, 51, 55, 62, 66, 68, 70, 74]));
+bingoCards.push(new BingoCard(83, [1, 6, 8, 9, 11, 21, 23, 24, 26, 16, 40, 42, 31, 38, 53, 54, 56, 46, 51, 61, 66, 68, 69, 71]));
+bingoCards.push(new BingoCard(84, [13, 7, 8, 15, 14, 19, 27, 23, 20, 26, 36, 33, 34, 44, 54, 51, 46, 59, 49, 72, 67, 68, 69, 75]));
+bingoCards.push(new BingoCard(85, [6, 10, 15, 12, 13, 26, 25, 22, 28, 23, 42, 41, 45, 31, 50, 57, 53, 58, 46, 66, 72, 70, 63, 61]));
+bingoCards.push(new BingoCard(86, [4, 6, 10, 11, 15, 19, 22, 23, 26, 17, 35, 41, 32, 40, 50, 51, 53, 54, 58, 65, 69, 71, 73, 62]));
+bingoCards.push(new BingoCard(87, [10, 1, 12, 13, 6, 21, 28, 27, 16, 25, 43, 40, 45, 31, 58, 46, 55, 57, 51, 66, 70, 61, 72, 73]));
+bingoCards.push(new BingoCard(88, [9, 14, 1, 2, 8, 22, 21, 30, 28, 27, 40, 42, 43, 45, 58, 50, 53, 54, 56, 69, 66, 63, 75, 70]));
+bingoCards.push(new BingoCard(89, [5, 11, 7, 6, 1, 22, 23, 29, 19, 20, 38, 39, 41, 35, 55, 57, 47, 48, 50, 74, 65, 67, 61, 69]));
+bingoCards.push(new BingoCard(90, [7, 9, 13, 14, 3, 22, 25, 26, 29, 20, 38, 44, 35, 43, 53, 54, 56, 57, 46, 68, 72, 74, 61, 65]));
+bingoCards.push(new BingoCard(91, [1, 4, 14, 13, 12, 28, 27, 29, 19, 16, 31, 38, 39, 40, 49, 46, 58, 57, 59, 64, 74, 61, 72, 73]));
+bingoCards.push(new BingoCard(92, [14, 15, 5, 6, 7, 30, 28, 29, 26, 16, 31, 40, 38, 35, 58, 54, 52, 48, 47, 62, 68, 69, 65, 64]));
+bingoCards.push(new BingoCard(93, [7, 6, 4, 1, 8, 25, 22, 30, 17, 16, 37, 45, 31, 44, 56, 50, 53, 52, 51, 62, 75, 74, 70, 67]));
+bingoCards.push(new BingoCard(94, [8, 5, 13, 3, 12, 23, 22, 18, 24, 27, 34, 37, 45, 39, 52, 59, 51, 48, 47, 68, 62, 65, 70, 75]));
+bingoCards.push(new BingoCard(95, [3, 4, 6, 9, 11, 19, 18, 23, 25, 27, 35, 38, 43, 32, 51, 49, 48, 58, 59, 66, 67, 72, 74, 75]));
+bingoCards.push(new BingoCard(96, [6, 9, 2, 15, 5, 19, 25, 24, 27, 18, 36, 39, 43, 33, 50, 55, 54, 58, 46, 66, 67, 68, 70, 62]));
+bingoCards.push(new BingoCard(97, [2, 4, 12, 15, 10, 27, 20, 29, 17, 16, 43, 32, 33, 45, 50, 46, 47, 53, 52, 73, 75, 71, 63, 62]));
+bingoCards.push(new BingoCard(98, [1, 9, 10, 2, 7, 24, 23, 30, 29, 25, 35, 41, 40, 42, 55, 60, 50, 56, 57, 73, 64, 74, 63, 70]));
+bingoCards.push(new BingoCard(99, [14, 2, 8, 9, 11, 16, 20, 21, 23, 27, 32, 39, 38, 33, 46, 57, 58, 5, 53, 62, 66, 68, 70, 74]));
+bingoCards.push(new BingoCard(100, [8, 12, 11, 14, 3, 23, 26, 30, 28, 17, 31, 38, 42, 40, 53, 57, 54, 49, 51, 68, 62, 72, 63, 64]));
