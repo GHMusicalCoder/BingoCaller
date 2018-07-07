@@ -6,7 +6,7 @@ var calledNs = [];
 var calledGs = [];
 var calledOs = [];
 var bingoCards = [];
-
+var showRemaining = 6;
 
 
 // classes
@@ -17,6 +17,17 @@ class BingoCard {
         this.cardNumbers.splice(12, 0, 99);
         this.calledNumbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         this.bingos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.hasBingo = false;
+        this.hasDouble = false;
+        this.hasCover = false;
+        this.remaining = 24;
+    }
+
+    checkBingo() {
+        this.hasBingo = this.bingos.reduce((a, b) => a + b) > 0;
+        this.hasCover = this.bingos.reduce((a, b) => a + b) === 13;
+        this.hasDouble = this.bingos.reduce((a, b) => a + b) > 1;
+        this.remaining = 25 - this.calledNumbers.filter(function (x) { return x == 1}).length;
     }
 }
 
@@ -36,6 +47,11 @@ function getBingoNumber() {
     $('#numbersG').html(calledGs.sort((a, b) => a - b).join(" : "));
     $('#numbersO').html(calledOs.sort((a, b) => a - b).join(" : "));
     $('#calledNumber').html(bingo);
+    $('#remainB').html("(" + (15 - calledBs.length).toString() + ")");
+    $('#remainI').html("(" + (15 - calledIs.length).toString() + ")");
+    $('#remainN').html("(" + (15 - calledNs.length).toString() + ")");
+    $('#remainG').html("(" + (15 - calledGs.length).toString() + ")");
+    $('#remainO').html("(" + (15 - calledOs.length).toString() + ")");
 }
 
 function getBingoValue(number) {
@@ -92,7 +108,11 @@ function resetBingo() {
     bingoCards.forEach(function (x) {
         x.calledNumbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         x.bingos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        x.hasBingo = false;
+        x.hasDouble = false;
+        x.hasCover = false;
     });
+    showRemaining = 6;
 }
 
 
@@ -117,19 +137,28 @@ function testForBingo(number) {
            if (x.calledNumbers[0] && x.calledNumbers[6] && x.calledNumbers[12] && x.calledNumbers[18] && x.calledNumbers[24]) setBingo(i, 10);
            if (x.calledNumbers[20] && x.calledNumbers[16] && x.calledNumbers[12] && x.calledNumbers[8] && x.calledNumbers[4]) setBingo(i, 11);
            if (x.calledNumbers[0] && x.calledNumbers[4] && x.calledNumbers[20] && x.calledNumbers[24]) setBingo(i, 12);
-
-           if ($('#chkCover').prop('checked')) {
-               if (x.bingos.reduce((a, b) => a + b) === 13)
-                   $html += `Card # ${x.number} has a the COVER ALL Bingo!</br>`;
-           } else if ($('#chkDouble').prop('checked')) {
-               if (x.bingos.reduce((a, b) => a + b) > 1)
-                   $html += `Card # ${x.number} has a double bingo in ${bingoLocation(x.bingos.indexOf(1))} & ${bingoLocation(x.bingos.indexOf(1, 2))}!</br>`;
-           } else {
-               if (x.bingos.reduce((a, b) => a + b) > 0)
-                   $html += `Card # ${x.number} has a bingo in ${bingoLocation(x.bingos.indexOf(1))}!</br>`;
-           }
-
        }
+       if (x.hasBingo) {
+           if ($('#chkCover').prop('checked')) {
+               // we are only worried about a coverall
+               if (x.hasCover) $html += `<span class="bingo">Card # ${x.number} has THE COVER ALL!<br /></span><br />`;
+               else if (x.remaining < showRemaining) {
+                   $html += `Card # ${x.number} only has ${x.remaining} spaces remaining...<br />`;
+                   if (showRemaining === 6 && x.remaining === 3) showRemaining = 5;
+                   if (showRemaining === 5 && x.remaining === 2) showRemaining = 4;
+                   if (showRemaining === 4 && x.remaining === 1) showRemaining = 3;
+               }
+           } else if ($('#chkDouble').prop('checked')) {
+               // we want both people at 1 bingo and both
+               index = x.bingos.indexOf(1);
+               if (x.hasDouble) $html += `<span class="bingo">Card # ${x.number} has DOUBLE BINGO at ${bingoLocation(index)} & ${bingoLocation(1, index+1)}!<br /></span>`;
+               else $html += `Card # ${x.number} has a single bingo at ${bingoLocation(x.bingos.indexOf(1))}!<br />`;
+           } else {
+               // single bingos
+               $html += `<span class="bingo">Card # ${x.number} has a BINGO at ${bingoLocation(x.bingos.indexOf(1))}!<br /></span>`;
+           }
+       }
+
     });
 
     if ($html === "") $html = "NO BINGOS YET!!!";
@@ -140,6 +169,7 @@ function testForBingo(number) {
 
 function setBingo(index, bingo) {
      bingoCards[index].bingos[bingo] = 1;
+     bingoCards[index].checkBingo();
 }
 
 
