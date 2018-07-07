@@ -37,12 +37,23 @@
         </div>
         <br />
         <div class="row">
+            <div class="col-md-6 center">
+                <input type="checkbox" id="chkDouble" />&nbsp;<label for="chkDouble">&nbsp;DOUBLE BINGO</label>
+            </div>
+            <div class="col-md-6 center">
+                <input type="checkbox" id="chkCover" />&nbsp;<label for="chkCover">&nbsp;COVER ALL</label>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <button type="button" id="btnNext" class="btn btn-primary btn-lg btn-block" onclick="getBingoNumber();">NEXT NUMBER</button>
             </div>
             <div class="col-md-6">
                 <button type="button" id="btnReset" class="btn btn-primary btn-lg btn-block" onclick="resetBingo();">RESET BINGO</button>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 center" id="divBingos"></div>
         </div>
     </div>
 </body>

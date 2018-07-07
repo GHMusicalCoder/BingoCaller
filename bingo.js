@@ -7,6 +7,21 @@ var calledGs = [];
 var calledOs = [];
 var bingoCards = [];
 
+
+
+// classes
+class BingoCard {
+    constructor(number, cardValues) {
+        this.number = number;
+        this.cardNumbers = cardValues;
+        this.cardNumbers.splice(12, 0, 99);
+        this.calledNumbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.bingos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    }
+}
+
+
+// ready functions
 $(document).ready(function () {
     resetBingo();
     validateCards();
@@ -53,7 +68,8 @@ function generateBingoNumber() {
     if (calledNumbers.length === 75) {
         $('#btnNext').hide();
     }
-    testForBingo(possibleNumber)
+
+    if (calledNumbers.length >= 4) testForBingo(possibleNumber)
     return getBingoValue(possibleNumber);
 }
 
@@ -71,17 +87,81 @@ function resetBingo() {
     $('#numbersG').html("");
     $('#numbersO').html("");
     $('#calledNumber').html("Waiting...");
+    $('#divBingos').html("");
     $('#btnNext').show();
-    for (i = 0; ++i < bingoCards.length;) {
-        bingoCards[i]['calledNumbers'] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    bingoCards.forEach(function (x) {
+        x.calledNumbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        x.bingos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    });
+}
+
+
+function testForBingo(number) {
+    var $html = "";
+    bingoCards.forEach(function (x, i) {
+       if (x.cardNumbers.indexOf(number) > -1) {
+           //bingo card has number
+           x.calledNumbers[x.cardNumbers.indexOf(number)] = 1;
+
+           //test for bingo
+           if (x.calledNumbers[0] && x.calledNumbers[1] && x.calledNumbers[2] && x.calledNumbers[3] && x.calledNumbers[4]) setBingo(i, 0);
+           if (x.calledNumbers[5] && x.calledNumbers[6] && x.calledNumbers[7] && x.calledNumbers[8] && x.calledNumbers[9]) setBingo(i, 1);
+           if (x.calledNumbers[10] && x.calledNumbers[11] && x.calledNumbers[12] && x.calledNumbers[13] && x.calledNumbers[14]) setBingo(i, 2);
+           if (x.calledNumbers[15] && x.calledNumbers[16] && x.calledNumbers[17] && x.calledNumbers[18] && x.calledNumbers[19]) setBingo(i, 3);
+           if (x.calledNumbers[20] && x.calledNumbers[21] && x.calledNumbers[22] && x.calledNumbers[23] && x.calledNumbers[24]) setBingo(i, 4);
+           if (x.calledNumbers[0] && x.calledNumbers[5] && x.calledNumbers[10] && x.calledNumbers[15] && x.calledNumbers[20]) setBingo(i, 5);
+           if (x.calledNumbers[1] && x.calledNumbers[6] && x.calledNumbers[11] && x.calledNumbers[16] && x.calledNumbers[21]) setBingo(i, 6);
+           if (x.calledNumbers[2] && x.calledNumbers[7] && x.calledNumbers[12] && x.calledNumbers[17] && x.calledNumbers[22]) setBingo(i, 7);
+           if (x.calledNumbers[3] && x.calledNumbers[8] && x.calledNumbers[13] && x.calledNumbers[18] && x.calledNumbers[23]) setBingo(i, 8);
+           if (x.calledNumbers[4] && x.calledNumbers[9] && x.calledNumbers[14] && x.calledNumbers[19] && x.calledNumbers[24]) setBingo(i, 9);
+           if (x.calledNumbers[0] && x.calledNumbers[6] && x.calledNumbers[12] && x.calledNumbers[18] && x.calledNumbers[24]) setBingo(i, 10);
+           if (x.calledNumbers[20] && x.calledNumbers[16] && x.calledNumbers[12] && x.calledNumbers[8] && x.calledNumbers[4]) setBingo(i, 11);
+           if (x.calledNumbers[0] && x.calledNumbers[4] && x.calledNumbers[20] && x.calledNumbers[24]) setBingo(i, 12);
+
+           if ($('#chkCover').prop('checked')) {
+               if (x.bingos.reduce((a, b) => a + b) === 13)
+                   $html += `Card # ${x.number} has a the COVER ALL Bingo!</br>`;
+           } else if ($('#chkDouble').prop('checked')) {
+               if (x.bingos.reduce((a, b) => a + b) > 1)
+                   $html += `Card # ${x.number} has a double bingo in ${bingoLocation(x.bingos.indexOf(1))} & ${bingoLocation(x.bingos.indexOf(1, 2))}!</br>`;
+           } else {
+               if (x.bingos.reduce((a, b) => a + b) > 0)
+                   $html += `Card # ${x.number} has a bingo in ${bingoLocation(x.bingos.indexOf(1))}!</br>`;
+           }
+
+       }
+    });
+
+    if ($html === "") $html = "NO BINGOS YET!!!";
+
+    $("#divBingos").html($html);
+}
+
+
+function setBingo(index, bingo) {
+     bingoCards[index].bingos[bingo] = 1;
+}
+
+
+function bingoLocation(index) {
+    switch (index) {
+        case 0: return 'B Column';
+        case 1: return 'I Column';
+        case 2: return 'N Column';
+        case 3: return 'G Column';
+        case 4: return 'O Column';
+        case 5: return 'Top Row';
+        case 6: return 'Top-Mid Row';
+        case 7: return 'Middle Row';
+        case 8: return 'Mid-Bottom Row';
+        case 9: return 'Bottom Row';
+        case 10: return 'Diagonal from Top B to Bottom O';
+        case 11: return 'Diagonal from Top O to Bottom B';
+        case 12: return '4 Corners';
     }
 }
 
-function getCalledHTML(numbers) {
-    var $html = '';
-
-}
-
+// Card Validation Functions
 function validateCards() {
     // loop thru bingo cards and verify all is legit
     bingoCards.forEach(function (x) {
@@ -125,26 +205,8 @@ function validateO(value) {
 }
 
 
-function testForBingo(number) {
 
-}
-
-class BingoCard {
-    constructor(number, cardValues) {
-        this.number = number;
-        this.cardNumbers = cardValues;
-        this.cardNumbers.splice(12, 0, 99);
-        this.calledNumbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.isBingo = false;
-    }
-}
-
-// card = {
-//     number: 0,
-//     cardNumbers: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 99, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     calledNumbers: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-// }
-
+// Bingo Cards
 bingoCards.push(new BingoCard(1, [8, 2, 4, 11, 5, 17, 30, 19, 21, 26, 41, 45, 32, 43, 60, 57, 55, 48, 54, 75, 63, 61, 67, 73]));
 bingoCards.push(new BingoCard(2, [7, 12, 2, 13, 3, 26, 24, 27, 30, 21, 41, 34, 32, 43, 58, 52, 56, 60, 46, 69, 75, 70, 72, 62])); 
 bingoCards.push(new BingoCard(3, [13, 4, 8, 9, 10, 29, 24, 30, 21, 16, 44, 41, 40, 39, 58, 48, 49, 52, 55, 73, 62, 66, 68, 65])); 
