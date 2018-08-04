@@ -36,17 +36,26 @@ class BingoCard {
 $(document).ready(function () {
     resetBingo();
     validateCards();
+    checkManual();
 });
 
 
 function getBingoNumber() {
     var bingo = generateBingoNumber();
+    $('#calledNumber').html(bingo);
+    displayBingoNumber()
+    displayRemaining()
+}
+
+function displayBingoNumber() {
     $('#numbersB').html(calledBs.sort((a, b) => a - b).join(" : "));
     $('#numbersI').html(calledIs.sort((a, b) => a - b).join(" : "));
     $('#numbersN').html(calledNs.sort((a, b) => a - b).join(" : "));
     $('#numbersG').html(calledGs.sort((a, b) => a - b).join(" : "));
     $('#numbersO').html(calledOs.sort((a, b) => a - b).join(" : "));
-    $('#calledNumber').html(bingo);
+}
+
+function displayRemaining() {
     $('#remainB').html("(" + (15 - calledBs.length).toString() + ")");
     $('#remainI').html("(" + (15 - calledIs.length).toString() + ")");
     $('#remainN').html("(" + (15 - calledNs.length).toString() + ")");
@@ -74,10 +83,15 @@ function getBingoValue(number) {
 }
 
 function generateBingoNumber() {
-    var possibleNumber = Math.floor(Math.random() * Math.floor(75)) + 1;
-    while (calledNumbers.includes(possibleNumber)) {
-        possibleNumber = Math.floor(Math.random() * Math.floor(75)) + 1;
+    if ($('#chkManual').prop('checked'))
+        possibleNumber = parseInt($('#txtManual').val());
+    else {
+        var possibleNumber = Math.floor(Math.random() * Math.floor(75)) + 1;
+        while (calledNumbers.includes(possibleNumber)) {
+            possibleNumber = Math.floor(Math.random() * Math.floor(75)) + 1;
+        }
     }
+
 
     //we should now have an uncalled number
     calledNumbers.push(possibleNumber);
@@ -105,6 +119,7 @@ function resetBingo() {
     $('#calledNumber').html("Waiting...");
     $('#divBingos').html("");
     $('#btnNext').show();
+    displayRemaining()
     bingoCards.forEach(function (x) {
         x.calledNumbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         x.bingos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -113,6 +128,8 @@ function resetBingo() {
         x.hasCover = false;
     });
     showRemaining = 6;
+    $('#chkManual').prop('checked', false);
+    checkManual();
 }
 
 
@@ -189,6 +206,13 @@ function bingoLocation(index) {
         case 11: return 'Diagonal from Top O to Bottom B';
         case 12: return '4 Corners';
     }
+}
+
+function checkManual() {
+    if ($('#chkManual').prop('checked'))
+        $('#txtManual').show()
+    else
+        $('#txtManual').hide()
 }
 
 // Card Validation Functions
